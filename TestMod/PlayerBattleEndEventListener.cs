@@ -43,14 +43,18 @@ namespace KillBanditsRaiseRelations
 				banditSide = m.DefenderSide;
 			}
 			BanditDeathCounter += banditSide.Casualties;
-			if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !this.PrisonersOnly))
+
+			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
-				if (this.BanditGroupCounter == 1)
+				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !this.PrisonersOnly))
 				{
-					IncreaseLocalRelations(m);
-					this.ResetBanditDeathCounter();
+					if (this.BanditGroupCounter == 1)
+					{
+						IncreaseLocalRelations(m);
+						this.ResetBanditDeathCounter();
+					}
+					this.BanditGroupCounterUpdate();
 				}
-				this.BanditGroupCounterUpdate();		
 			}
 		}
 

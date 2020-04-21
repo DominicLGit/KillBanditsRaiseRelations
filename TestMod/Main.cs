@@ -1,80 +1,42 @@
 ﻿using System;
-using System.IO;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
+using ModLib;
 
 namespace KillBanditsRaiseRelations
 {
     public class Main : MBSubModuleBase
 	{
 
-		private Settings CurrentSettings { get; set; }
-
+		protected override void OnSubModuleLoad()
+		{
+			try
+			{
+				FileDatabase.Initialise("KillBanditsRaiseRelations");
+				KBRRModLibSettings settings = FileDatabase.Get<KBRRModLibSettings>(KBRRModLibSettings.InstanceID);
+				if (settings == null) settings = new KBRRModLibSettings();
+				SettingsDatabase.RegisterSettings(settings);
+			}
+			catch(Exception ex)
+			{
+				InformationManager.DisplayMessage(new InformationMessage("Could not Initialise ModLib for KillBanditsRaiseRelations: " + ex.Message.ToString(), Color.FromUint(4282569842U)));
+			}
+			
+		}
 
 		public override void OnGameLoaded(Game game, object initializerObject)
 		{
 			try
 			{
-				string path = Path.Combine(BasePath.Name, "Modules", "KillBanditsRaiseRelations", "Settings.xml");
-				DeserializeObject(path);
-				CurrentSettings.ClampValues();
-			}
-
-			catch (Exception ex)
-			{
-				InformationManager.DisplayMessage(new InformationMessage("Could not serialize Settings.xml for KillBanditsRaiseRelations: " + ex.Message.ToString() + " Using default values!", Color.FromUint(4282569842U)));
-				this.CurrentSettings = new Settings();
-			}
-
-			try
-			{
-				PlayerBattleEndEventListener playerBattleEndEventListener = new PlayerBattleEndEventListener(CurrentSettings);
+				PlayerBattleEndEventListener playerBattleEndEventListener = new PlayerBattleEndEventListener();
 				CampaignEvents.OnPlayerBattleEndEvent.AddNonSerializedListener(playerBattleEndEventListener, new Action<MapEvent>(playerBattleEndEventListener.IncreaseLocalRelationsAfterBanditFight));
 			}
 			catch (Exception ex)
 			{
 				InformationManager.DisplayMessage(new InformationMessage("An error has occurred during OnGameLoaded for KillBanditsRaiseRelations: " + ex.Message.ToString(), Color.FromUint(4282569842U)));
 			}
-		}
-
-		private void DeserializeObject(string filename)
-		{
-			XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-
-			// Declare an object variable of the type to be deserialized.
-			Settings s;
-
-			using (Stream reader = new FileStream(filename, FileMode.Open))
-			{
-				// Call the Deserialize method to restore the object's state.
-				s = (Settings)serializer.Deserialize(reader);
-			}
-
-			// Write out the properties of the object.
-			CurrentSettings = s;
-		}
-
-		private void SerializeObject(string filename)
-		{
-			Console.WriteLine("Writing With XmlTextWriter");
-
-			XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-			Settings s = new Settings();
-			// Create an XmlTextWriter using a FileStream.
-			Stream fs = new FileStream(filename, FileMode.Create);
-			XmlWriterSettings XmlSettings = new XmlWriterSettings();
-			XmlSettings.Indent = true;
-			XmlSettings.IndentChars = ("\t");
-			XmlSettings.OmitXmlDeclaration = true;
-			XmlWriter writer = XmlWriter.Create(fs, XmlSettings);
-			// Serialize using the XmlTextWriter.
-			serializer.Serialize(writer, s);
-			writer.Close();
 		}
 	}
 }

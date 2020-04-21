@@ -10,24 +10,13 @@ namespace KillBanditsRaiseRelations
 {
 	class PlayerBattleEndEventListener
 	{
-		private int GroupsOfBandits { get; set; }
-		private int RelationshipIncrease { get; set; }
-		private int Radius { get; set; }
-		private float SizeBonus { get; set; }
-		private bool PrisonersOnly { get; set; }
 		private int BanditGroupCounter { get; set; }
 		private int BanditDeathCounter { get; set; }
 
-		public PlayerBattleEndEventListener(Settings CurrentSettings)
+		public PlayerBattleEndEventListener()
 		{
-			this.GroupsOfBandits = CurrentSettings.GroupsOfBandits;
-			this.RelationshipIncrease = CurrentSettings.RelationshipIncrease;
-			this.Radius = CurrentSettings.Radius;
-			this.SizeBonus = CurrentSettings.SizeBonus;
-			this.PrisonersOnly = CurrentSettings.PrisonersOnly;
-			this.BanditGroupCounter = CurrentSettings.GroupsOfBandits;
+			this.BanditGroupCounter = KBRRModLibSettings.Instance.GroupsOfBandits;
 			this.BanditDeathCounter = 0;
-
 		}
 
 		public void IncreaseLocalRelationsAfterBanditFight(MapEvent m)
@@ -46,7 +35,7 @@ namespace KillBanditsRaiseRelations
 
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
-				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !this.PrisonersOnly))
+				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !KBRRModLibSettings.Instance.PrisonersOnly))
 				{
 					if (this.BanditGroupCounter == 1)
 					{
@@ -60,18 +49,19 @@ namespace KillBanditsRaiseRelations
 
 		private void IncreaseLocalRelations(MapEvent m)
 		{
-			float FinalRelationshipIncrease = this.RelationshipIncrease;
-			if (this.SizeBonus != 0)
+			float FinalRelationshipIncrease = KBRRModLibSettings.Instance.RelationshipIncrease;
+			if (KBRRModLibSettings.Instance.SizeBonusEnabled)
 			{
-				FinalRelationshipIncrease = this.RelationshipIncrease * this.BanditDeathCounter * this.SizeBonus;
+				FinalRelationshipIncrease = KBRRModLibSettings.Instance.RelationshipIncrease * this.BanditDeathCounter * KBRRModLibSettings.Instance.SizeBonus;
 			}
 			int FinalRelationshipIncreaseInt = (int)Math.Floor(FinalRelationshipIncrease);
 			FinalRelationshipIncreaseInt = FinalRelationshipIncreaseInt < 1 ? 1 : FinalRelationshipIncreaseInt;
+			InformationManager.DisplayMessage(new InformationMessage("FinalRelationshipIncreaseInt: " + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
 
 			List<Settlement> list = new List<Settlement>();
 			foreach (Settlement settlement in Settlement.All)
 			{
-				if ((settlement.IsVillage || settlement.IsTown) && settlement.Position2D.DistanceSquared(m.Position) <= this.Radius)
+				if ((settlement.IsVillage || settlement.IsTown) && settlement.Position2D.DistanceSquared(m.Position) <= KBRRModLibSettings.Instance.Radius)
 				{
 					list.Add(settlement);
 				}
@@ -92,7 +82,7 @@ namespace KillBanditsRaiseRelations
 			this.BanditGroupCounter--;
 			if (this.BanditGroupCounter == 0)
 			{
-				this.BanditGroupCounter = this.GroupsOfBandits;
+				this.BanditGroupCounter = KBRRModLibSettings.Instance.GroupsOfBandits;
 			}
 		}
 

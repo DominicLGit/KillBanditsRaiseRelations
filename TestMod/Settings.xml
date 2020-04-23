@@ -1,0 +1,53 @@
+﻿<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	 
+	<!--This is the number of bandit groups you must defeat before you gain relationship. 
+  The default value is 1, meaning you will gain relationship after defeating every bandit group
+  It should be an integer-->    
+	<GroupsOfBandits>1</GroupsOfBandits>
+	
+	<!--This is the base value that your relationship will increase by when it increases. This value will then be affected by your charm skill.
+  The default value is 1. It should be an integer-->
+	<RelationshipIncrease>1</RelationshipIncrease>
+	
+	<!--This is the size of the radius inside which villages and towns will be affected by the relationship increase. 
+  The default is 1000. It should be an integer-->
+	<Radius>1000</Radius>
+	
+	<!--SizeBonus is a multiplier for the RelationshipIncrease value. 
+	It will multiply the SizeBonus by the number of bandits you have killed since you last gained relationship.
+	It will then multiply the RelationshipIncrease value by this number to get your FinalRelationshipIncrease.
+	
+	SizeBonus x NumberOfBanditsKilled x RelationshipIncrease = FinalRelationshipIncrease
+	
+	The minimum value of FinalRelationshipIncrease is 1
+	
+	NumberOfBanditsKilled resets to 0 every time you gain relationship.
+	
+	Default value is 0.04
+	
+	Setting this to 0 will deactivate the size multiplier and instead you will get the flat RelationshipIncrease value.
+	
+	Example1:
+	RelationshipIncrease = 1
+	SizeBonus = 0.04
+	GroupsOfBandits = 1
+	NumberOfBanditsKilled = 50
+	
+	Then your FinalRelationshipIncrease will be 2.
+	
+	Example2:
+	RelationshipIncrease = 1
+	SizeBonus = 0.005
+	GroupsOfBandits = 10
+	NumberOfBanditsKilled = 500
+	
+	Then your FinalRelationshipIncrease will be 2.5, this will be rounded down to 2. 
+	-->
+	<SizeBonus>0.04</SizeBonus>
+	
+	<!--This settings controls whether or not only bandits with prisoners give a relationship increase
+	The default is false.
+	false means all bandits will count for a relationship bonus.
+	true means only bandits with prisoners count for a relationship bonus.-->
+	<PrisonersOnly>false</PrisonersOnly>
+</Settings>

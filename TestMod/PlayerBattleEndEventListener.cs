@@ -42,12 +42,13 @@ namespace KillBanditsRaiseRelations
 			{
 				banditSide = m.DefenderSide;
 			}
-			BanditDeathCounter += banditSide.Casualties;
+			
 
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
 				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !this.PrisonersOnly))
 				{
+					BanditDeathCounter += banditSide.Casualties;
 					if (this.BanditGroupCounter == 1)
 					{
 						IncreaseLocalRelations(m);

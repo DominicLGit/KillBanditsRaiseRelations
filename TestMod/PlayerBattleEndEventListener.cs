@@ -31,12 +31,12 @@ namespace KillBanditsRaiseRelations
 			{
 				banditSide = m.DefenderSide;
 			}
-			BanditDeathCounter += banditSide.Casualties;
-
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
 				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !KBRRModLibSettings.Instance.PrisonersOnly))
 				{
+					BanditDeathCounter += banditSide.Casualties;
+					InformationManager.DisplayMessage(new InformationMessage("BanditDeathCounter: " + BanditDeathCounter.ToString(), Color.FromUint(4282569842U)));
 					if (this.BanditGroupCounter == 1)
 					{
 						IncreaseLocalRelations(m);
@@ -56,7 +56,7 @@ namespace KillBanditsRaiseRelations
 			}
 			int FinalRelationshipIncreaseInt = (int)Math.Floor(FinalRelationshipIncrease);
 			FinalRelationshipIncreaseInt = FinalRelationshipIncreaseInt < 1 ? 1 : FinalRelationshipIncreaseInt;
-			InformationManager.DisplayMessage(new InformationMessage("FinalRelationshipIncreaseInt: " + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
+			InformationManager.DisplayMessage(new InformationMessage("Final Relationship Increase: " + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
 
 			List<Settlement> list = new List<Settlement>();
 			foreach (Settlement settlement in Settlement.All)
@@ -74,7 +74,7 @@ namespace KillBanditsRaiseRelations
 					ChangeRelationAction.ApplyPlayerRelation(h, relation: FinalRelationshipIncreaseInt, affectRelatives: true, showQuickNotification: false);
 				}
 			}
-			InformationManager.DisplayMessage(new InformationMessage("Your relation increased with nearby notables.", Color.FromUint(4282569842U)));
+			InformationManager.DisplayMessage(new InformationMessage("Your relationship increased with nearby notables.", Color.FromUint(4282569842U)));
 		}
 
 		private void BanditGroupCounterUpdate()

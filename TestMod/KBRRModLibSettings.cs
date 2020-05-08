@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
-using ModLib;
-using ModLib.Attributes;
+using ModLib.Definitions;
+using ModLib.Definitions.Attributes;
 
 namespace KillBanditsRaiseRelations
 {
@@ -16,7 +16,7 @@ namespace KillBanditsRaiseRelations
         {
             get
             {
-                return (KBRRModLibSettings)SettingsDatabase.GetSettings(InstanceID);
+                return (KBRRModLibSettings)SettingsDatabase.GetSettings<KBRRModLibSettings>();
             }
         }
 
@@ -27,7 +27,7 @@ namespace KillBanditsRaiseRelations
         [SettingProperty("Relationship Increase", 1, 50, "The base value that your relationship will increase by when it increases.")]
         public int RelationshipIncrease { get; set; } = 1;
         [XmlElement]
-        [SettingProperty("Radius", 500, 5000, "This is the size of the radius inside which villages and towns will be affected by the relationship increase.")]
+        [SettingPropertyAttribute("Radius", 500, 5000, "This is the size of the radius inside which villages and towns will be affected by the relationship increase.")]
         public int Radius { get; set; } = 1000;
         [XmlElement]
         [SettingProperty("Size Bonus toggle", "Activate size bonus")]
@@ -41,5 +41,19 @@ namespace KillBanditsRaiseRelations
         [XmlElement]
         [SettingProperty("PrisonersOnly", "This settings controls whether or not only bandits with prisoners give a relationship increase.")]
         public bool PrisonersOnly { get; set; } = false;
+
+        [XmlElement]
+        [SettingProperty("IncludeBandits", "This settings controls whether or not bandit factions should be included.")]
+        public bool IncludeBandits { get; set; } = true;
+
+        [XmlElement]
+        [SettingProperty("IncludeOutlaws", "This settings controls whether or not outlaw factions should be included.")]
+        public bool IncludeOutlaws { get; set; } = false;
+
+        [XmlElement]
+        [SettingProperty("Include Mafia", "This settings controls whether or not mafia clans should be included.")]
+        public bool IncludeMafia { get; set; } = false;
+
+
     }
 }

@@ -33,7 +33,7 @@ namespace KillBanditsRaiseRelations
 			}
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
-				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !KBRRModLibSettings.Instance.PrisonersOnly))
+				if (IsDefeatedBanditLike(m) && (partyReceivingLootShare.PrisonRoster.Count > 0 || !KBRRModLibSettings.Instance.PrisonersOnly))
 				{
 					BanditDeathCounter += banditSide.Casualties;
 					InformationManager.DisplayMessage(new InformationMessage("BanditDeathCounter: " + BanditDeathCounter.ToString(), Color.FromUint(4282569842U)));
@@ -91,6 +91,25 @@ namespace KillBanditsRaiseRelations
 			this.BanditDeathCounter = 0;
 		}
 
+		private bool IsDefeatedBanditLike(MapEvent m)
+		{
+			if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction && KBRRModLibSettings.Instance.IncludeBandits)
+			{
+				return true;
+			}
+
+			if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsOutlaw && KBRRModLibSettings.Instance.IncludeOutlaws)
+			{
+				return true;
+			}
+
+			if (m.GetLeaderParty(m.DefeatedSide).Owner.Clan.IsMafia && KBRRModLibSettings.Instance.IncludeMafia)
+			{
+				return true;
+			}
+
+			return false;
+		}
 
 	}
 }

@@ -5,19 +5,19 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 using ModLib;
 
+
 namespace KillBanditsRaiseRelations
 {
     public class Main : MBSubModuleBase
 	{
 
-		protected override void OnSubModuleLoad()
+		protected override void OnBeforeInitialModuleScreenSetAsRoot()
 		{
 			try
 			{
 				FileDatabase.Initialise("KillBanditsRaiseRelations");
 				KBRRModLibSettings settings = FileDatabase.Get<KBRRModLibSettings>(KBRRModLibSettings.InstanceID);
 				if (settings == null) settings = new KBRRModLibSettings();
-				SettingsDatabase.RegisterSettings(settings);
 			}
 			catch(Exception ex)
 			{

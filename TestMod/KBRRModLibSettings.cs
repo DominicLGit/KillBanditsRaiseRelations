@@ -34,7 +34,7 @@ namespace KillBanditsRaiseRelations
         [SettingPropertyGroup("Size Bonus", true)]
         public bool SizeBonusEnabled { get; set; } = true;
         [XmlElement]
-        [SettingProperty("SizeBonus", 0.001f, 1f, "Multiply the SizeBonus by the number of bandits you have killed since you last gained relationship," +
+        [SettingProperty("SizeBonus", 0.01f, 1f, "Multiply the SizeBonus by the number of bandits you have killed since you last gained relationship," +
             " this will then be multiplied by the base Relationship Increase to give your final increase value.")]
         [SettingPropertyGroup("Size Bonus", false)]
         public float SizeBonus { get; set; } = 0.05f;

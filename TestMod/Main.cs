@@ -16,8 +16,7 @@ namespace KillBanditsRaiseRelations
 			try
 			{
 				FileDatabase.Initialise("KillBanditsRaiseRelations");
-				KBRRModLibSettings settings = FileDatabase.Get<KBRRModLibSettings>(KBRRModLibSettings.InstanceID);
-				if (settings == null) settings = new KBRRModLibSettings();
+				KBRRModLibSettings settings = new KBRRModLibSettings();
 			}
 			catch(Exception ex)
 			{

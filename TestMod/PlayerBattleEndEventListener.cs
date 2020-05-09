@@ -93,21 +93,28 @@ namespace KillBanditsRaiseRelations
 
 		private bool IsDefeatedBanditLike(MapEvent m)
 		{
-			if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction && KBRRModLibSettings.Instance.IncludeBandits)
+			try
 			{
-				return true;
+				if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction && KBRRModLibSettings.Instance.IncludeBandits)
+				{
+					return true;
+				}
+
+				if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsOutlaw && KBRRModLibSettings.Instance.IncludeOutlaws)
+				{
+					return true;
+				}
+
+				if (m.GetLeaderParty(m.DefeatedSide).Owner.Clan.IsMafia && KBRRModLibSettings.Instance.IncludeMafia)
+				{
+					return true;
+				}
 			}
 
-			if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsOutlaw && KBRRModLibSettings.Instance.IncludeOutlaws)
+			catch (Exception ex)
 			{
-				return true;
+				//Avoids crash for parties without an owner set	
 			}
-
-			if (m.GetLeaderParty(m.DefeatedSide).Owner.Clan.IsMafia && KBRRModLibSettings.Instance.IncludeMafia)
-			{
-				return true;
-			}
-
 			return false;
 		}
 

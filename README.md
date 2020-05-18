@@ -10,7 +10,10 @@ https://www.nexusmods.com/mountandblade2bannerlord/mods/592
 https://github.com/mipen/ModLib
 
 ### Installing
-Build to "build\KillBanditsRaiseRelations\bin\Win64_Shipping_Client"
+Download from: https://www.nexusmods.com/mountandblade2bannerlord/mods/500?tab=files
+
+
+Or build to "build\KillBanditsRaiseRelations\bin\Win64_Shipping_Client"
 
 Copy KillBanditsRaiseRelations folder to the Modules folder of your Mount & Blade II Bannerlord installation. 
 

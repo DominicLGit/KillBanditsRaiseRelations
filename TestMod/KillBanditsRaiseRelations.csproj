@@ -194,7 +194,7 @@
   <ItemGroup>
     <Folder Include="build\KillBanditsRaiseRelations\bin\Win64_Shipping_Client\" />
     <Folder Include="build\KillBanditsRaiseRelations\ModuleData\Loadables\" />
-    <Folder Include="docs\" />
+    <Folder Include="docs\images\" />
     <Folder Include="tests\" />
     <Folder Include="tools\" />
   </ItemGroup>

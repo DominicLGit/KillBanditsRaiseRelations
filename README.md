@@ -20,3 +20,8 @@ Copy KillBanditsRaiseRelations folder to the Modules folder of your Mount & Blad
 Toggle on the required mods in the loader with ModLib coming before KillBanditsRaiseRelations
 
 ![Image of game loader](https://github.com/DominicLGit/KillBanditsRaiseRelations/blob/master/TestMod/docs/images/loader.png)
+
+
+Modify the default settings in the ModLib options menu
+
+![Image of options menu](https://github.com/DominicLGit/KillBanditsRaiseRelations/blob/master/TestMod/docs/images/options.png)

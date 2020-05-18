@@ -25,3 +25,7 @@ Toggle on the required mods in the loader with ModLib coming before KillBanditsR
 Modify the default settings in the ModLib options menu
 
 ![Image of options menu](https://github.com/DominicLGit/KillBanditsRaiseRelations/blob/master/TestMod/docs/images/options.png)
+
+### License
+
+This project is licensed under the Creative Commons Zero v1.0 Universal License - see the [LICENSE.md](LICENSE.md) file for details

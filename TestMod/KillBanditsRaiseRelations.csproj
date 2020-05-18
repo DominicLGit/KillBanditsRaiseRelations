@@ -184,10 +184,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
-    <Compile Include="KBRRModLibSettings.cs" />
-    <Compile Include="PlayerBattleEndEventListener.cs" />
+    <Compile Include="src\Main.cs" />
+    <Compile Include="src\KBRRModLibSettings.cs" />
+    <Compile Include="src\PlayerBattleEndEventListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+    <Folder Include="docs\" />
+    <Folder Include="tests\" />
+    <Folder Include="tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

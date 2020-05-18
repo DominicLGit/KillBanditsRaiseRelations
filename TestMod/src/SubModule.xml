@@ -1,0 +1,29 @@
+ <Module>
+     <Name value="KillBanditsRaiseRelations"/>
+     <Id value="KillBanditsRaiseRelations"/>
+     <Version value="v1.2.5"/>
+     <DefaultModule value="false"/>
+     <SingleplayerModule value="true"/>
+     <MultiplayerModule value="false"/>
+     <Official value ="false" />
+     <DependedModules>
+         <DependedModule Id="Native"/>
+         <DependedModule Id="SandBoxCore"/>
+         <DependedModule Id="Sandbox"/>
+         <DependedModule Id="CustomBattle"/>
+         <DependedModule Id="StoryMode" />
+         <DependedModule Id="ModLib"/>
+     </DependedModules>
+     <SubModules>
+         <SubModule>
+             <Name value="KillBanditsRaiseRelations"/>
+             <DLLName value="KillBanditsRaiseRelations.dll"/>
+             <SubModuleClassType value="KillBanditsRaiseRelations.Main"/>
+             <Tags>
+                 <Tag key="DedicatedServerType" value="none" />
+                 <Tag key="IsNoRenderModeElement" value="false" />
+             </Tags>
+         </SubModule>
+     </SubModules>
+     <Xmls/>
+ </Module>

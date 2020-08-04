@@ -32,7 +32,20 @@ namespace KillBanditsRaiseRelations
 
 		public void IncreaseLocalRelationsAfterBanditFight(MapEvent m)
 		{
-			PartyBase partyReceivingLootShare = m.GetPartyReceivingLootShare(PartyBase.MainParty);
+			//GetPartyReceivingLootShare method made internal in 1.4.3 beta.  
+			PartyBase partyReceivingLootShare;
+			int mainPartSideInt = (int)PartyBase.MainParty.Side;
+
+			if (mainPartSideInt == 1)
+            {
+				partyReceivingLootShare = m.AttackerSide.PartyForPlayerLootShare(PartyBase.MainParty);
+            }
+			else
+            {
+				partyReceivingLootShare = m.DefenderSide.PartyForPlayerLootShare(PartyBase.MainParty);
+			}
+
+			//PartyBase partyReceivingLootShare = m.GetPartyReceivingLootShare(PartyBase.MainParty);
 			MapEventSide banditSide;
 			if (m.DefeatedSide == BattleSideEnum.Attacker)
 			{

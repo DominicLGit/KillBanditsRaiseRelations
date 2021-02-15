@@ -33,17 +33,11 @@ namespace KillBanditsRaiseRelations
 		public void IncreaseLocalRelationsAfterBanditFight(MapEvent m)
 		{
 			//GetPartyReceivingLootShare method made internal in 1.4.3 beta.  
-			PartyBase partyReceivingLootShare;
+			TroopRoster rosterReceivingLootShare;
 			int mainPartSideInt = (int)PartyBase.MainParty.Side;
 
-			if (mainPartSideInt == 1)
-            {
-				partyReceivingLootShare = m.AttackerSide.PartyForPlayerLootShare(PartyBase.MainParty);
-            }
-			else
-            {
-				partyReceivingLootShare = m.DefenderSide.PartyForPlayerLootShare(PartyBase.MainParty);
-			}
+			rosterReceivingLootShare = PlayerEncounter.Current.RosterToReceiveLootMembers;
+
 
 			//PartyBase partyReceivingLootShare = m.GetPartyReceivingLootShare(PartyBase.MainParty);
 			MapEventSide banditSide;
@@ -57,7 +51,7 @@ namespace KillBanditsRaiseRelations
 			}
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
-				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (partyReceivingLootShare.NumberOfRegularMembers > 0 || !this.PrisonersOnly))
+				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (rosterReceivingLootShare.TotalHealthyCount > 0 || !this.PrisonersOnly))
 				{
 					BanditDeathCounter += banditSide.Casualties;
 					if (this.BanditGroupCounter == 1)

@@ -21,17 +21,10 @@ namespace KillBanditsRaiseRelations
 
 		public void IncreaseLocalRelationsAfterBanditFight(MapEvent m)
 		{
-			PartyBase partyReceivingLootShare;
+			TroopRoster rosterReceivingLootShare;
 			int mainPartSideInt = (int)PartyBase.MainParty.Side;
 
-			if (mainPartSideInt == 1)
-			{
-				partyReceivingLootShare = m.AttackerSide.PartyForPlayerLootShare(PartyBase.MainParty);
-			}
-			else
-			{
-				partyReceivingLootShare = m.DefenderSide.PartyForPlayerLootShare(PartyBase.MainParty);
-			}
+			rosterReceivingLootShare = PlayerEncounter.Current.RosterToReceiveLootMembers;
 
 			//PartyBase partyReceivingLootShare = m.GetPartyReceivingLootShare(PartyBase.MainParty);
 
@@ -48,7 +41,7 @@ namespace KillBanditsRaiseRelations
 			}
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
-				if (IsDefeatedBanditLike(m) && (partyReceivingLootShare.NumberOfRegularMembers > 0 || !KBRRModLibSettings.Instance.PrisonersOnly))
+				if (IsDefeatedBanditLike(m) && (rosterReceivingLootShare.TotalHealthyCount > 0 || !KBRRModLibSettings.Instance.PrisonersOnly))
 				{
 					BanditDeathCounter += banditSide.Casualties;
 					InformationManager.DisplayMessage(new InformationMessage("BanditDeathCounter: " + BanditDeathCounter.ToString(), Color.FromUint(4282569842U)));

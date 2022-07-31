@@ -4,9 +4,9 @@ using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using TaleWorlds.CampaignSystem.MapEvents;
 
 namespace KillBanditsRaiseRelations
 {

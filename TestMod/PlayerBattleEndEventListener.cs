@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Encounters;
+using TaleWorlds.CampaignSystem.Settlements;
 
 namespace KillBanditsRaiseRelations
 {
@@ -51,7 +56,7 @@ namespace KillBanditsRaiseRelations
 			}
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
-				if ((m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction) && (rosterReceivingLootShare.TotalHealthyCount > 0 || !this.PrisonersOnly))
+				if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction && (rosterReceivingLootShare.TotalHealthyCount > 0 || !this.PrisonersOnly))
 				{
 					BanditDeathCounter += banditSide.Casualties;
 					if (this.BanditGroupCounter == 1)

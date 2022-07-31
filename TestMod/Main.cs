@@ -15,8 +15,7 @@ namespace KillBanditsRaiseRelations
 
 		private Settings CurrentSettings { get; set; }
 
-
-		public override void OnGameLoaded(Game game, object initializerObject)
+		public override void BeginGameStart(Game game)
 		{
 			try
 			{

@@ -18,19 +18,21 @@ namespace KillBanditsRaiseRelations
 		private int GroupsOfBandits { get; set; }
 		private int RelationshipIncrease { get; set; }
 		private int Radius { get; set; }
+		private bool ToggleSizeBonus { get; set; }
 		private float SizeBonus { get; set; }
 		private bool PrisonersOnly { get; set; }
 		private int BanditGroupCounter { get; set; }
 		private int BanditDeathCounter { get; set; }
 
-		public PlayerBattleEndEventListener(Settings CurrentSettings)
+		public PlayerBattleEndEventListener()
 		{
-			this.GroupsOfBandits = CurrentSettings.GroupsOfBandits;
-			this.RelationshipIncrease = CurrentSettings.RelationshipIncrease;
-			this.Radius = CurrentSettings.Radius;
-			this.SizeBonus = CurrentSettings.SizeBonus;
-			this.PrisonersOnly = CurrentSettings.PrisonersOnly;
-			this.BanditGroupCounter = CurrentSettings.GroupsOfBandits;
+			this.GroupsOfBandits = SettingsMCM.Instance.GroupsOfBandits;
+			this.RelationshipIncrease = SettingsMCM.Instance.RelationshipIncrease;
+			this.Radius = SettingsMCM.Instance.Radius;
+			this.ToggleSizeBonus = SettingsMCM.Instance.ToggleSizeBonus;
+			this.SizeBonus = SettingsMCM.Instance.SizeBonus;
+			this.PrisonersOnly = SettingsMCM.Instance.PrisonersOnly;
+			this.BanditGroupCounter = SettingsMCM.Instance.GroupsOfBandits;
 			this.BanditDeathCounter = 0;
 
 		}
@@ -72,7 +74,7 @@ namespace KillBanditsRaiseRelations
 		private void IncreaseLocalRelations(MapEvent m)
 		{
 			float FinalRelationshipIncrease = this.RelationshipIncrease;
-			if (this.SizeBonus != 0)
+			if (this.ToggleSizeBonus)
 			{
 				FinalRelationshipIncrease = this.RelationshipIncrease * this.BanditDeathCounter * this.SizeBonus;
 			}

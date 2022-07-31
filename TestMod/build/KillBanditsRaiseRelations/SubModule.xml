@@ -22,6 +22,18 @@
                  <Tag key="IsNoRenderModeElement" value="false" />
              </Tags>
          </SubModule>
+		 <SubModule>
+			 <Name value="MCMv4" />
+			 <DLLName value="MCMv4.dll" />
+			 <SubModuleClassType value="MCM.MCMSubModule" />
+			 <Tags />
+		 </SubModule>
+		 <SubModule>
+			 <Name value="MCMv4 Basic Implementation" />
+			 <DLLName value="MCMv4.dll" />
+			 <SubModuleClassType value="MCM.Implementation.MCMImplementationSubModule" />
+			 <Tags />
+		 </SubModule>
      </SubModules>
      <Xmls/>
  </Module>

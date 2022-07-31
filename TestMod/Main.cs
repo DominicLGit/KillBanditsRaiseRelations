@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.MapEvents;
 
 namespace KillBanditsRaiseRelations
 {
-    public class Main : MBSubModuleBase
+	public class Main : MBSubModuleBase
 	{
 
 		private Settings CurrentSettings { get; set; }
@@ -19,20 +19,7 @@ namespace KillBanditsRaiseRelations
 		{
 			try
 			{
-				string path = Path.Combine(BasePath.Name, "Modules", "KillBanditsRaiseRelations", "Settings.xml");
-				DeserializeObject(path);
-				CurrentSettings.ClampValues();
-			}
-
-			catch (Exception ex)
-			{
-				InformationManager.DisplayMessage(new InformationMessage("Could not serialize Settings.xml for KillBanditsRaiseRelations: " + ex.Message.ToString() + " Using default values!", Color.FromUint(4282569842U)));
-				this.CurrentSettings = new Settings();
-			}
-
-			try
-			{
-				PlayerBattleEndEventListener playerBattleEndEventListener = new PlayerBattleEndEventListener(CurrentSettings);
+				PlayerBattleEndEventListener playerBattleEndEventListener = new PlayerBattleEndEventListener();
 				CampaignEvents.OnPlayerBattleEndEvent.AddNonSerializedListener(playerBattleEndEventListener, new Action<MapEvent>(playerBattleEndEventListener.IncreaseLocalRelationsAfterBanditFight));
 			}
 			catch (Exception ex)

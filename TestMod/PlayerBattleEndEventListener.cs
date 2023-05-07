@@ -2,35 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Encounters;
+using TaleWorlds.CampaignSystem.Settlements;
 
 namespace KillBanditsRaiseRelations
 {
 	class PlayerBattleEndEventListener
 	{
+		private int GroupsOfBandits { get; set; }
+		private int RelationshipIncrease { get; set; }
+		private int Radius { get; set; }
+		private bool ToggleSizeBonus { get; set; }
+		private float SizeBonus { get; set; }
+		private bool PrisonersOnly { get; set; }
 		private int BanditGroupCounter { get; set; }
 		private int BanditDeathCounter { get; set; }
 
 		public PlayerBattleEndEventListener()
 		{
-			this.BanditGroupCounter = KBRRModLibSettings.Instance.GroupsOfBandits;
+			this.GroupsOfBandits = SettingsMCM.Instance.GroupsOfBandits;
+			this.RelationshipIncrease = SettingsMCM.Instance.RelationshipIncrease;
+			this.Radius = SettingsMCM.Instance.Radius;
+			this.ToggleSizeBonus = SettingsMCM.Instance.ToggleSizeBonus;
+			this.SizeBonus = SettingsMCM.Instance.SizeBonus;
+			this.PrisonersOnly = SettingsMCM.Instance.PrisonersOnly;
+			this.BanditGroupCounter = SettingsMCM.Instance.GroupsOfBandits;
 			this.BanditDeathCounter = 0;
+
 		}
 
 		public void IncreaseLocalRelationsAfterBanditFight(MapEvent m)
 		{
+			//GetPartyReceivingLootShare method made internal in 1.4.3 beta.  
 			TroopRoster rosterReceivingLootShare;
 			int mainPartSideInt = (int)PartyBase.MainParty.Side;
 
 			rosterReceivingLootShare = PlayerEncounter.Current.RosterToReceiveLootMembers;
 
+
 			//PartyBase partyReceivingLootShare = m.GetPartyReceivingLootShare(PartyBase.MainParty);
-
-
 			MapEventSide banditSide;
-
 			if (m.DefeatedSide == BattleSideEnum.Attacker)
 			{
 				banditSide = m.AttackerSide;
@@ -41,10 +58,9 @@ namespace KillBanditsRaiseRelations
 			}
 			if (!((int)m.DefeatedSide == -1 || (int)m.DefeatedSide == 2))
 			{
-				if (IsDefeatedBanditLike(m) && (rosterReceivingLootShare.TotalHealthyCount > 0 || !KBRRModLibSettings.Instance.PrisonersOnly))
+				if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction && (rosterReceivingLootShare.TotalHealthyCount > 0 || !this.PrisonersOnly))
 				{
 					BanditDeathCounter += banditSide.Casualties;
-					InformationManager.DisplayMessage(new InformationMessage("BanditDeathCounter: " + BanditDeathCounter.ToString(), Color.FromUint(4282569842U)));
 					if (this.BanditGroupCounter == 1)
 					{
 						IncreaseLocalRelations(m);
@@ -57,19 +73,18 @@ namespace KillBanditsRaiseRelations
 
 		private void IncreaseLocalRelations(MapEvent m)
 		{
-			float FinalRelationshipIncrease = KBRRModLibSettings.Instance.RelationshipIncrease;
-			if (KBRRModLibSettings.Instance.SizeBonusEnabled)
+			float FinalRelationshipIncrease = this.RelationshipIncrease;
+			if (this.ToggleSizeBonus)
 			{
-				FinalRelationshipIncrease = KBRRModLibSettings.Instance.RelationshipIncrease * this.BanditDeathCounter * KBRRModLibSettings.Instance.SizeBonus;
+				FinalRelationshipIncrease = this.RelationshipIncrease * this.BanditDeathCounter * this.SizeBonus;
 			}
 			int FinalRelationshipIncreaseInt = (int)Math.Floor(FinalRelationshipIncrease);
 			FinalRelationshipIncreaseInt = FinalRelationshipIncreaseInt < 1 ? 1 : FinalRelationshipIncreaseInt;
-			InformationManager.DisplayMessage(new InformationMessage("Final Relationship Increase: " + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
 
 			List<Settlement> list = new List<Settlement>();
 			foreach (Settlement settlement in Settlement.All)
 			{
-				if ((settlement.IsVillage || settlement.IsTown) && settlement.Position2D.DistanceSquared(m.Position) <= KBRRModLibSettings.Instance.Radius)
+				if ((settlement.IsVillage || settlement.IsTown) && settlement.Position2D.DistanceSquared(m.Position) <= this.Radius)
 				{
 					list.Add(settlement);
 				}
@@ -82,7 +97,8 @@ namespace KillBanditsRaiseRelations
 					ChangeRelationAction.ApplyPlayerRelation(h, relation: FinalRelationshipIncreaseInt, affectRelatives: true, showQuickNotification: false);
 				}
 			}
-			InformationManager.DisplayMessage(new InformationMessage("Your relationship increased with nearby notables.", Color.FromUint(4282569842U)));
+			InformationManager.DisplayMessage(new InformationMessage("FinalRelationshipIncrease: " + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
+			InformationManager.DisplayMessage(new InformationMessage("Your relation increased with nearby notables.", Color.FromUint(4282569842U)));
 		}
 
 		private void BanditGroupCounterUpdate()
@@ -90,7 +106,7 @@ namespace KillBanditsRaiseRelations
 			this.BanditGroupCounter--;
 			if (this.BanditGroupCounter == 0)
 			{
-				this.BanditGroupCounter = KBRRModLibSettings.Instance.GroupsOfBandits;
+				this.BanditGroupCounter = this.GroupsOfBandits;
 			}
 		}
 
@@ -99,32 +115,6 @@ namespace KillBanditsRaiseRelations
 			this.BanditDeathCounter = 0;
 		}
 
-		private bool IsDefeatedBanditLike(MapEvent m)
-		{
-			try
-			{
-				if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsBanditFaction && KBRRModLibSettings.Instance.IncludeBandits)
-				{
-					return true;
-				}
-
-				if (m.GetLeaderParty(m.DefeatedSide).MapFaction.IsOutlaw && KBRRModLibSettings.Instance.IncludeOutlaws)
-				{
-					return true;
-				}
-
-				if (m.GetLeaderParty(m.DefeatedSide).Owner.Clan.IsMafia && KBRRModLibSettings.Instance.IncludeMafia)
-				{
-					return true;
-				}
-			}
-
-			catch (Exception ex)
-			{
-				//Avoids crash for parties without an owner set	
-			}
-			return false;
-		}
 
 	}
 }

@@ -6,6 +6,7 @@ using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Encounters;
@@ -97,8 +98,8 @@ namespace KillBanditsRaiseRelations
 					ChangeRelationAction.ApplyPlayerRelation(h, relation: FinalRelationshipIncreaseInt, affectRelatives: true, showQuickNotification: false);
 				}
 			}
-			InformationManager.DisplayMessage(new InformationMessage("FinalRelationshipIncrease: " + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
-			InformationManager.DisplayMessage(new InformationMessage("Your relation increased with nearby notables.", Color.FromUint(4282569842U)));
+			InformationManager.DisplayMessage(new InformationMessage(new TextObject("{=KBPR.MSG001}FinalRelationshipIncrease: ") + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
+			InformationManager.DisplayMessage(new InformationMessage(new TextObject("{=KBRR.MSG002}Your relation increased with nearby notables.").ToString(), Color.FromUint(4282569842U)));
 		}
 
 		private void BanditGroupCounterUpdate()

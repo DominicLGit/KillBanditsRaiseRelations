@@ -56,7 +56,7 @@ namespace KillBanditsRaiseRelations
 			HintText = "{=KBRR.MCM005Hint}This setting controls whether or not Size Bonus is used.", RequireRestart = false)]
 		public bool ToggleSizeBonus { get; set; } = false;
 		[SettingPropertyBool("{=KBRR.MCM006}Prisoners Only", Order = 5,
-			HintText = "{KBRR.MCM006Hint}This settings controls whether or not only bandits with prisoners give a relationship increase.", RequireRestart = false)]
+			HintText = "{=KBRR.MCM006Hint}This settings controls whether or not only bandits with prisoners give a relationship increase.", RequireRestart = false)]
 		public bool PrisonersOnly { get; set; } = false;
 
 	}

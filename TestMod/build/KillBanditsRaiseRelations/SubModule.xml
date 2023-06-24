@@ -1,7 +1,7 @@
  <Module>
      <Name value="Kill Bandits Raise Relations"/>
      <Id value="KillBanditsRaiseRelations"/>
-     <Version value="v2.1.4"/>
+     <Version value="v2.1.5"/>
      <SingleplayerModule value="true"/>
      <MultiplayerModule value="false"/>
      <Official value ="false" />

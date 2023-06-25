@@ -252,11 +252,27 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Bannerlord.BUTR.Shared">
-      <Version>2.0.0.86</Version>
+    <PackageReference Include="Bannerlord.BuildResources">
+      <Version>1.1.0.102</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Bannerlord.MCM">
+      <Version>5.7.1</Version>
     </PackageReference>
     <PackageReference Include="Bannerlord.ModuleManager.Source">
-      <Version>4.0.121</Version>
+      <Version>5.0.209</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Bannerlord.ReferenceAssemblies">
+      <Version>1.1.5.21456</Version>
+    </PackageReference>
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.BirthAndDeath">
+      <Version>1.1.5.21456</Version>
+    </PackageReference>
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.Native">
+      <Version>1.1.5.21456</Version>
     </PackageReference>
     <PackageReference Include="IsExternalInit">
       <Version>1.0.3</Version>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="English" />
+  </tags>
+  <strings>
+  <string id="KBRR.MSG001" text="FinalRelationshipIncrease: " />
+  <string id="KBRR.MSG002" text="Your relation increased with nearby notables." />
+  <string id="KBRR.MCM001" text="Groups Of Bandits" />
+  <string id="KBRR.MCM001Hint" text="This is the number of bandit groups you must defeat before you gain relationship." />
+  <string id="KBRR.MCM002" text="Relationship Increase" />
+  <string id="KBRR.MCM002Hint" text="This is the base value that your relationship will increase by when it increases. This value will then be affected by your charm skill." />
+  <string id="KBRR.MCM003" text="Radius" />
+  <string id="KBRR.MCM003Hint" text="This is the size of the radius inside which villages and towns will be affected by the relationship increase." />
+  <string id="KBRR.MCM004" text="Size Bonus" />
+  <string id="KBRR.MCM004Hint" text="This a multiplier for the Relationship Increase value. It will multiply Relationship Increase by the SizeBonus and the number of bandits you have killed since you last gained relationship." />
+  <string id="KBRR.MCM005" text="Toggle Size Bonus" />
+  <string id="KBRR.MCM005Hint" text="This setting controls whether or not Size Bonus is used." />
+  <string id="KBRR.MCM006" text="Prisoners Only" />
+  <string id="KBRR.MCM006Hint" text="This settings controls whether or not only bandits with prisoners give a relationship increase." />
+  </strings>
+</base>

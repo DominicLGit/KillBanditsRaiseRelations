@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="日本語" />
+  </tags>
+  <strings>
+  <string id="KBRR.MSG001" text="好感度上昇: " />
+  <string id="KBRR.MSG002" text="近隣の有力者から好感を得た。" />
+  <string id="KBRR.MCM001" text="盗賊団の数" />
+  <string id="KBRR.MCM001Hint" text="好感度を上昇させるために必要な盗賊部隊の撃破数です。" />
+  <string id="KBRR.MCM002" text="好感度上昇" />
+  <string id="KBRR.MCM002Hint" text="好感度の上昇量の基礎値です。上昇量は魅力スキルの影響を受けます。" />
+  <string id="KBRR.MCM003" text="影響半径" />
+  <string id="KBRR.MCM003Hint" text="好感度上昇効果の影響範囲です。半径内にある村や都市からの好感度が上昇します。" />
+  <string id="KBRR.MCM004" text="規模ボーナス" />
+  <string id="KBRR.MCM004Hint" text="好感度上昇倍率です。最後に好感度が上昇して以降に討伐した盗賊の数と規模ボーナス値を乗じた値が倍率になります。" />
+  <string id="KBRR.MCM005" text="規模ボーナスの切り替え" />
+  <string id="KBRR.MCM005Hint" text="規模ボーナスの有効無効を切り替えます。" />
+  <string id="KBRR.MCM006" text="捕虜のみ計上" />
+  <string id="KBRR.MCM006Hint" text="捕虜にした盗賊のみを好感度計算にカウントするかどうかを切り替えます。" />
+  </strings>
+</base>

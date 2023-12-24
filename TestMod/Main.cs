@@ -19,7 +19,7 @@ namespace KillBanditsRaiseRelations
 		{
 			try
 			{
-				PlayerBattleEndEventListener playerBattleEndEventListener = new PlayerBattleEndEventListener();
+				PlayerBattleEndEventListener playerBattleEndEventListener = new();
 				CampaignEvents.OnPlayerBattleEndEvent.AddNonSerializedListener(playerBattleEndEventListener, new Action<MapEvent>(playerBattleEndEventListener.IncreaseLocalRelationsAfterBanditFight));
 			}
 			catch (Exception ex)
@@ -30,7 +30,7 @@ namespace KillBanditsRaiseRelations
 
 		private void DeserializeObject(string filename)
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+			XmlSerializer serializer = new(typeof(Settings));
 
 			// Declare an object variable of the type to be deserialized.
 			Settings s;
@@ -49,15 +49,17 @@ namespace KillBanditsRaiseRelations
 		{
 			Console.WriteLine("Writing With XmlTextWriter");
 
-			XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-			Settings s = new Settings();
+			XmlSerializer serializer = new(typeof(Settings));
+			Settings s = new();
 			// Create an XmlTextWriter using a FileStream.
 			Stream fs = new FileStream(filename, FileMode.Create);
-			XmlWriterSettings XmlSettings = new XmlWriterSettings();
-			XmlSettings.Indent = true;
-			XmlSettings.IndentChars = ("\t");
-			XmlSettings.OmitXmlDeclaration = true;
-			XmlWriter writer = XmlWriter.Create(fs, XmlSettings);
+            XmlWriterSettings XmlSettings = new()
+            {
+                Indent = true,
+                IndentChars = ("\t"),
+                OmitXmlDeclaration = true
+            };
+            XmlWriter writer = XmlWriter.Create(fs, XmlSettings);
 			// Serialize using the XmlTextWriter.
 			serializer.Serialize(writer, s);
 			writer.Close();

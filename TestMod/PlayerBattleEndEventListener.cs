@@ -82,7 +82,7 @@ namespace KillBanditsRaiseRelations
 			int FinalRelationshipIncreaseInt = (int)Math.Floor(FinalRelationshipIncrease);
 			FinalRelationshipIncreaseInt = FinalRelationshipIncreaseInt < 1 ? 1 : FinalRelationshipIncreaseInt;
 
-			List<Settlement> list = new List<Settlement>();
+			List<Settlement> list = new();
 			foreach (Settlement settlement in Settlement.All)
 			{
 				if ((settlement.IsVillage || settlement.IsTown) && settlement.Position2D.DistanceSquared(m.Position) <= this.Radius)
@@ -98,7 +98,7 @@ namespace KillBanditsRaiseRelations
 					ChangeRelationAction.ApplyPlayerRelation(h, relation: FinalRelationshipIncreaseInt, affectRelatives: true, showQuickNotification: false);
 				}
 			}
-			InformationManager.DisplayMessage(new InformationMessage(new TextObject("{=KBPR.MSG001}FinalRelationshipIncrease: ") + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
+			InformationManager.DisplayMessage(new InformationMessage(new TextObject("{=KBRR.MSG001}FinalRelationshipIncrease: ") + FinalRelationshipIncreaseInt.ToString(), Color.FromUint(4282569842U)));
 			InformationManager.DisplayMessage(new InformationMessage(new TextObject("{=KBRR.MSG002}Your relation increased with nearby notables.").ToString(), Color.FromUint(4282569842U)));
 		}
 

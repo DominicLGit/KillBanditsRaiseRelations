@@ -1,7 +1,7 @@
  <Module>
-     <Name value="KillBanditsRaiseRelations"/>
+     <Name value="Kill Bandits Raise Relations"/>
      <Id value="KillBanditsRaiseRelations"/>
-     <Version value="v2.1.3"/>
+     <Version value="v2.1.6"/>
      <SingleplayerModule value="true"/>
      <MultiplayerModule value="false"/>
      <Official value ="false" />
@@ -12,6 +12,13 @@
          <DependedModule Id="CustomBattle"/>
          <DependedModule Id="StoryMode" />
      </DependedModules>
+     <DependedModuleMetadatas>
+        <DependedModuleMetadata id="Native" order="LoadBeforeThis" version="1.2.*" />
+        <DependedModuleMetadata id="SandBoxCore" order="LoadBeforeThis" version="1.2.*" />
+        <DependedModuleMetadata id="SandBox" order="LoadBeforeThis" version="1.2.*" />
+        <DependedModuleMetadata id="StoryMode" order="LoadBeforeThis" version="1.2.*" />
+        <DependedModuleMetadata id="Bannerlord.MBOptionScreen" order="LoadBeforeThis" version="v5.*" />
+      </DependedModuleMetadatas>
      <SubModules>
          <SubModule>
              <Name value="KillBanditsRaiseRelations"/>
